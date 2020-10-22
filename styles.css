@@ -1,4 +1,80 @@
-/* font-family: 'Quicksand', sans-serif;
+body {
+  font-family: 'Quicksand', sans-serif;
+}
+
+header {
+  background-color: #134d71;
+  color: white;
+  text-align: center;
+  margin: 0;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+main {
+  background-image: linear-gradient(#134d71, #78a7c6, #f7e4bf);
+  color: white;
+  display: flex;
+  flex-flow: column wrap-reverse;
+  align-items: center;
+  align-content: space-around;
+  min-height: 100vh;
+}
+
+.selection {
+  height: 50px;
+  width: 50%;
+  padding: 15px;
+  border-radius: 5px;
+  color: black;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-content: space-around;
+}
+
+.radio-buttons {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  padding-top: 5px;
+  padding-bottom: 15px;
+}
+
+#button {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+button {
+  background-color: #134d71;
+  color: white;
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 5px;
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.message-display {
+  margin-top: 40px;
+  background-color: white;
+  border-radius: 5px;
+  height: 20vh;
+  width: 75%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+img {
+  height: 10vh;
+}
+
+/*
 COLORS
 light-yellow - #f7e4bf;
 light-blue - #78a7c6;
