@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
   <head>
+    <title>Self-Care Center</title>
+    <meta charset="utf-8">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
   </head>
@@ -14,21 +16,24 @@
       <div class="selection">
         <div class="radio-buttons">
           <div>
-            <input class="affirmation-select" type="radio" value="affirmation">
+            <input id="affButton" name="affButton" class="affirmation-select" type="radio" value="affirmation">
             <label for="affirmation-select">affirmation</label>
           </div>
           <div>
-            <input class="mantra-select" type="radio" value="mantra">
+            <input id="mantraButton" name="mantraButton" class="mantra-select" type="radio" value="mantra">
             <label for="mantra-select">mantra</label>
           </div>
         </div>
-        <div class="recieve-message" id="button">
-          <button class="receive-message">Recieve Message</button>
+        <div class="recieve-message" id="recieve-message-button">
+          <button id="messageButton" class="receive-message hidden">Recieve Message</button>
         </div>
       </div>
       <br>
-      <div class="message-display">
-        <img src="assets/meditate.svg" alt="figure meditating">
+      <div class="message-box">
+        <div class="message">
+          <img class="meditation" src="assets/meditate.svg" alt="figure meditating">
+        </div>
+        <button class="clear hidden">Clear</button>
       </div>
     </main>
     <script type="text/javascript" src="main.js"></script>
