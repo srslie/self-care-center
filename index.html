@@ -14,18 +14,26 @@
       <br>
       <h3>Which type of message?</h3>
       <div class="selection">
-        <div class="radio-buttons">
+        <form class="radio-buttons">
           <div>
-            <input id="affButton" name="affButton" class="affirmation-select" type="radio" value="affirmation">
+            <input name="selectButton" class="affirmation-select" type="radio" value="affirmation">
             <label for="affirmation-select">affirmation</label>
           </div>
           <div>
-            <input id="mantraButton" name="mantraButton" class="mantra-select" type="radio" value="mantra">
+            <input name= "selectButton" class="mantra-select" type="radio" value="mantra">
             <label for="mantra-select">mantra</label>
           </div>
-        </div>
-        <div class="recieve-message" id="recieve-message-button">
-          <button id="messageButton" class="receive-message hidden">Recieve Message</button>
+        </form>
+        <div class="buttons-nav">
+          <div class="receive-message-button" id="recieve-message-button">
+            <button id="messageButton" class="receive-message hidden">Recieve Message</button>
+          </div>
+          <div class="form-button">
+            <button class="formButton hidden">Add Personalized Message</button>
+          </div>
+          <div class="user-form hidden">
+              <textarea cols="20" rows="3" class="add-affirmation-text" type:"text" placeholder="Your words here..."></textarea>
+          </div>
         </div>
       </div>
       <br>

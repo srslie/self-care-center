@@ -22,7 +22,7 @@ main {
 }
 
 .selection {
-  height: 50px;
+  height: auto;
   width: 50%;
   padding: 3%;
   border-radius: 5px;
@@ -32,6 +32,12 @@ main {
   justify-content: center;
   flex-wrap: wrap;
   align-content: space-around;
+}
+
+.buttons-nav {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .radio-buttons {
@@ -47,6 +53,12 @@ main {
   flex-wrap: wrap;
 }
 
+input[type="radio"] {
+  transform: scale(2);
+  margin: 2vh;
+}
+
+
 button {
   background-color: #134d71;
   color: white;
@@ -61,14 +73,20 @@ button {
   padding-bottom: 3px;
 }
 
+.user-form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .message-box {
   margin-top: 5%;
   background-color: white;
-  border-radius: 3%;
-  height: 20vh;
+  border-radius: 5px;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  height: auto;
   width: 75%;
   display: flex;
-  text-align: center;
   flex-flow: column;
   align-items: center;
   justify-content: center;
@@ -76,6 +94,7 @@ button {
 
 h4 {
   color: black;
+  align-items: center;
 }
 
 img {
@@ -88,6 +107,10 @@ img {
 
 .hidden {
   display: none;
+}
+
+.user-form {
+
 }
 /*
 COLORS

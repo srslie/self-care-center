@@ -1,4 +1,5 @@
-var mantras = [
+var content = {
+ mantras: [
 'Breathing in, I send myself love. Breathing out, I send love to someone else who needs it.',
 'Don’t let yesterday take up too much of today.',
 'Every day is a second chance.',
@@ -14,8 +15,8 @@ var mantras = [
 'The only constant is change.',
 'Onward and upward.',
 'I am the sky, the rest is weather.'
-]
-var affirmations = [
+],
+ affirmations: [
 'I forgive myself and set myself free.',
 'I believe I can be all that I want to be.',
 'I am in the process of becoming the best version of myself.',
@@ -29,61 +30,92 @@ var affirmations = [
 'Every day I am getting healthier and stronger.',
 'I honor my body by trusting the signals that it sends me.',
 'I manifest perfect health by making smart choices.'
-
 ]
+}
 
 var message = document.querySelector(".message")
 var meditationImage = document.querySelector(".meditation")
+var form = document.querySelector(".user-form")
+var userMessage = document.querySelector(".add-affirmation-text")
 
 var mantraButton = document.querySelector(".mantra-select")
 var affButton = document.querySelector(".affirmation-select")
 var messageButton = document.querySelector("#messageButton")
 var clearButton = document.querySelector(".clear")
+var formButton = document.querySelector(".formButton")
+var addMessageButton = document.querySelector(".add-affirmation")
 
-mantraButton.addEventListener('click', mantraClicked)
-affButton.addEventListener('click', affClicked)
+window.addEventListener('load', easeIn)
+mantraButton.addEventListener('click', messageSelect)
+affButton.addEventListener('click', messageSelect)
 messageButton.addEventListener('click', showMessage)
 clearButton.addEventListener('click', clearMessage)
+formButton.addEventListener('click', showForm)
+addMessageButton.addEventListener('click', displayUserMessage)
 
+function easeIn() {
+  console.log("Hello")
+  document.body.style.backgroundColor= '#134d71';
+}
 
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
 
-//messageButton.disable = true;
-
-//xor
-function affClicked() {
+function messageSelect() {
   messageButton.classList.remove("hidden")
-  mantraButton.checked = false
-  affButton.checked = true
+  formButton.classList.remove("hidden")
+//if form is not already dispayed, display formButton
   }
-
-function mantraClicked() {
-    messageButton.classList.remove("hidden")
-    mantraButton.checked  = true
-    affButton.checked = false
-  }
-
 
 function showMessage() {
   clearButton.classList.remove("hidden")
   messageButton.classList.add("hidden")
+  formButton.classList.add("hidden")
+  form.classList.add("hidden")
 
   if (!affButton.checked && !mantraButton.checked) {
     messageButton.classlist.add("hidden")
   }
 
   if (affButton.checked) {
-   message.innerHTML = `<h4>${affirmations[getRandomIndex(affirmations)]}</h4>`
-   console.log('AFF')
+    if (userMessage.value) {
+      message.innerHTML = `<h4>${userMessage.value}</h4>`
+    } else {
+      message.innerHTML = `<h4>${content.affirmations[getRandomIndex(content.affirmations)]}</h4>`
+      console.log('AFF')
+    }
   } else {
-    message.innerHTML = `<h4>${mantras[getRandomIndex(mantras)]}</h4>`
-    console.log('MAN')
+    if (userMessage.value) {
+      message.innerHTML = `<h4>${userMessage.value}</h4>`
+    } else {
+      message.innerHTML = `<h4>${content.mantras[getRandomIndex(content.mantras)]}</h4>`
+      console.log('MAN')
+    }
   }
+  userMessage.value = null
 }
 
 function clearMessage() {
   clearButton.classList.add("hidden")
   message.innerHTML = "<img class=\"meditation\" src=\"assets/meditate.svg\" alt=\"figure meditating\">"
+}
+
+function showForm() {
+  form.classList.remove("hidden")
+  formButton.classList.add("hidden")
+}
+
+function addAffirmation() {
+  if (!userAffButton.checked && !userMantraButton.checked) {
+    messageButton.classlist.add("hidden")
+  }
+}
+
+function displayUserMessage() {
+  form.classList.add("hidden")
+  clearButton.classList.remove("hidden")
+  formButton.classList.remove("hidden")
+
+  message.innerHTML = `<h4>${userMessage.value}</h4>`
 }
