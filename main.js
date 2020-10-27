@@ -19,103 +19,146 @@ var content = {
  affirmations: [
 'I forgive myself and set myself free.',
 'I believe I can be all that I want to be.',
-'I am in the process of becoming the best version of myself.',
-'I have the freedom & power to create the life I desire.',
-'I choose to be kind to myself and love myself unconditionally.',
-'My possibilities are endless.',
-'I am worthy of my dreams.',
-'I am enough.',
-'I deserve to be healthy and feel good.',
-'I am full of energy and vitality and my mind is calm and peaceful.',
-'Every day I am getting healthier and stronger.',
-'I honor my body by trusting the signals that it sends me.',
-'I manifest perfect health by making smart choices.'
-]
+// 'I am in the process of becoming the best version of myself.',
+// 'I have the freedom & power to create the life I desire.',
+// 'I choose to be kind to myself and love myself unconditionally.',
+// 'My possibilities are endless.',
+// 'I am worthy of my dreams.',
+// 'I am enough.',
+// 'I deserve to be healthy and feel good.',
+// 'I am full of energy and vitality and my mind is calm and peaceful.',
+// 'Every day I am getting healthier and stronger.',
+// 'I honor my body by trusting the signals that it sends me.',
+// 'I manifest perfect health by making smart choices.'
+],
 }
+var favoriteMessages = []
+var seenAffirmations = []
+var seenMantras = []
 
 var message = document.querySelector(".message")
 var meditationImage = document.querySelector(".meditation")
 var form = document.querySelector(".user-form")
-var userMessage = document.querySelector(".add-affirmation-text")
+var userMessage = document.querySelector(".user-form")
+var favorites = document.querySelector(".favorites")
 
 var mantraButton = document.querySelector(".mantra-select")
 var affButton = document.querySelector(".affirmation-select")
-var messageButton = document.querySelector("#messageButton")
+var messageButton = document.querySelector(".receive-message-button")
 var clearButton = document.querySelector(".clear")
-var formButton = document.querySelector(".formButton")
-var addMessageButton = document.querySelector(".add-affirmation")
+var formButton = document.querySelector(".form-button")
+var favoriteButton = document.querySelector(".favorite-button")
 
-window.addEventListener('load', easeIn)
+window.addEventListener('load', restoreFavorites)
 mantraButton.addEventListener('click', messageSelect)
 affButton.addEventListener('click', messageSelect)
 messageButton.addEventListener('click', showMessage)
-clearButton.addEventListener('click', clearMessage)
 formButton.addEventListener('click', showForm)
-addMessageButton.addEventListener('click', displayUserMessage)
+clearButton.addEventListener('click', clearMessage)
+favoriteButton.addEventListener('click', addFavorite)
 
-function easeIn() {
-  console.log("Hello")
-  document.body.style.backgroundColor= '#134d71';
+function reveal(element) {
+  element.classList.remove("hidden")
+}
+
+function hide(element) {
+  element.classList.add("hidden")
+}
+
+function messageSelect() {
+  reveal(messageButton)
+  reveal(formButton)
+  if (!form.classList.contains("hidden")) {
+    hide(formButton)
+  }
+}
+
+function showForm() {
+  reveal(form)
+  hide(formButton)
 }
 
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
 
-function messageSelect() {
-  messageButton.classList.remove("hidden")
-  formButton.classList.remove("hidden")
-//if form is not already dispayed, display formButton
+function verifySelection() {
+  if (!affButton.checked && !mantraButton.checked) {
+    hide(messageButton)
   }
+}
+
+function displayCurrent(input, array, seenArray) {
+  if (!input) {
+    var index = getRandomIndex(array)
+    input = array[index]
+    if (array.length) {
+      seenArray.push(array.splice(index, 1))
+    } else {
+      array = seenArray
+      seenArray = []
+      input = "You're out of affirmations, you will now see repeats!"
+    }
+  }
+
+  message.innerHTML = `<h4>${input}</h4>`
+}
 
 function showMessage() {
-  clearButton.classList.remove("hidden")
-  messageButton.classList.add("hidden")
-  formButton.classList.add("hidden")
-  form.classList.add("hidden")
+  reveal(clearButton)
+  reveal(favoriteButton)
+  hide(messageButton)
+  hide(formButton)
+  hide(form)
+  hide(meditationImage)
 
-  if (!affButton.checked && !mantraButton.checked) {
-    messageButton.classlist.add("hidden")
-  }
+  verifySelection()
 
   if (affButton.checked) {
     if (userMessage.value) {
-      message.innerHTML = `<h4>${userMessage.value}</h4>`
+      displayCurrent(userMessage.value)
+      content.affirmations.push(userMessage.value)
     } else {
-      message.innerHTML = `<h4>${content.affirmations[getRandomIndex(content.affirmations)]}</h4>`
-      console.log('AFF')
+      displayCurrent(userMessage.value, content.affirmations, seenAffirmations)
     }
   } else {
     if (userMessage.value) {
-      message.innerHTML = `<h4>${userMessage.value}</h4>`
+      displayCurrent(userMessage.value)
+      content.mantras.push(userMessage.value)
     } else {
-      message.innerHTML = `<h4>${content.mantras[getRandomIndex(content.mantras)]}</h4>`
-      console.log('MAN')
+      displayCurrent(userMessage.value, content.mantras, seenMantras)
     }
   }
   userMessage.value = null
 }
 
 function clearMessage() {
-  clearButton.classList.add("hidden")
-  message.innerHTML = "<img class=\"meditation\" src=\"assets/meditate.svg\" alt=\"figure meditating\">"
+  hide(clearButton)
+  hide(favoriteButton)
+  message.innerHTML = ''
+  reveal(meditationImage)
 }
 
-function showForm() {
-  form.classList.remove("hidden")
-  formButton.classList.add("hidden")
-}
-
-function addAffirmation() {
-  if (!userAffButton.checked && !userMantraButton.checked) {
-    messageButton.classlist.add("hidden")
+function displayFavorites() {
+  reveal(favorites)
+  favorites.innerHTML = '<h3>Favorites</h3>'
+  for(var i = 0; i < favoriteMessages.length; i++) {
+    favorites.innerHTML += `<h4>${favoriteMessages[i]}</h4>`
   }
 }
 
-function displayUserMessage() {
-  form.classList.add("hidden")
-  clearButton.classList.remove("hidden")
-  formButton.classList.remove("hidden")
+function addFavorite() {
+  reveal(favorites)
+  var currentMessage = document.querySelector("h4").innerText
+  favoriteMessages.push(currentMessage)
+  localStorage.setItem('localFavoriteMessages', JSON.stringify(favoriteMessages))
+  displayFavorites()
+  clearMessage()
+}
 
-  message.innerHTML = `<h4>${userMessage.value}</h4>`
+function restoreFavorites() {
+  favoriteMessages = localStorage.getItem('localFavoriteMessages') ? JSON.parse(localStorage.getItem('localFavoriteMessages')) : []
+  if (favoriteMessages.length) {
+    displayFavorites()
+  }
 }
